@@ -9,8 +9,11 @@ return array(
       |
      */
 
-    'queue-model' => "Gecche\\Cupparis\\Queue\\Models\\ActivityQueue",
 
-    'queue-storage-folder' =>  'files/queues',
+    'controller-namespace' => "Gecche\\Cupparis\\Queue\\Http\\Controllers",
+    'queues-namespace' => "App\\Queues",
+    'model' => "Gecche\\Cupparis\\Queue\\Models\\ActivityQueue",
+
+    'storage-folder' =>  'files/queues',
 );
 
