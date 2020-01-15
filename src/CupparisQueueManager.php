@@ -19,30 +19,29 @@ class CupparisQueueManager {
 
     protected $result = [];
 
-    protected $queues = [];
-
     /**
      * Loads Session and configuration options.
      *
      * @return  void
      */
-    public function __construct(callable $userResolver) {//AclManager $acl) {
+    public function __construct(array $config, callable $userResolver) {//AclManager $acl) {
         // Save the config in the object
 
         $this->userResolver = $userResolver;
-        $this->config = Config::get('cupparis-queue',[]);
+        $this->config = $config;
 
     }
 
-    public function setQueues($queues = []) {
-        $this->queues = $queues;
+    public function getConfig() {
+        return $this->config;
     }
-
 
     public function add(string $queue, string $action = null) {
 
 
-        $queueClass = Arr::get($this->queues,$queue,false);
+        $queues = Arr::get($this->config,'queues',[]);
+
+        $queueClass = Arr::get($queues,$queue,false);
 
         if (!$queueClass) {
             return [
@@ -127,6 +126,7 @@ class CupparisQueueManager {
     {
         return call_user_func($this->userResolver);
     }
+
 
     protected function setStandardResult() {
         $this->result = [

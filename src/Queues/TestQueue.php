@@ -1,4 +1,4 @@
-<?php namespace App\Queue;
+<?php namespace Gecche\Cupparis\Queue;
 
 
 use Gecche\Cupparis\Queue\MainQueue;

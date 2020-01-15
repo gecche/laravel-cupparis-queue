@@ -11,9 +11,12 @@ return array(
 
 
     'controller-namespace' => "Gecche\\Cupparis\\Queue\\Http\\Controllers",
-    'queues-namespace' => "App\\Queues",
+    'routes-prefix' => 'queue',
     'model' => "Gecche\\Cupparis\\Queue\\Models\\ActivityQueue",
-
     'storage-folder' =>  'files/queues',
+
+    'queues' => [
+      'test' => \Gecche\Cupparis\Queue\TestQueue::class,
+    ],
 );
 
