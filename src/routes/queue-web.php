@@ -6,7 +6,7 @@
  * Time: 16:04
  */
 
-$config = \Gecche\Cupparis\Menus\Facades\CupparisQueue::getConfig();
+$config = \Gecche\Cupparis\Queue\Facades\CupparisQueue::getConfig();
 
 $namespace = \Illuminate\Support\Arr::get($config, 'controller-namespace');
 $prefix = \Illuminate\Support\Arr::get($config, 'routes-prefix');

@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\Controller;
 
-use Gecche\Cupparis\Menus\Facades\CupparisQueue;
+use Gecche\Cupparis\Queue\Facades\CupparisQueue;
 use Illuminate\Support\Facades\Response;
 
 
