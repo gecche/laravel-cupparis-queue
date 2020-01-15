@@ -1,4 +1,4 @@
-<?php namespace Gecche\Cupparis\Menus\Facades;
+<?php namespace Gecche\Cupparis\Queue\Facades;
 
 use Illuminate\Support\Facades\Facade;
 /**
