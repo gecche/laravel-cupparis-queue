@@ -1,15 +1,24 @@
 <?php namespace Gecche\Cupparis\Queue;
 
-use App;
-use Gecche\Multidomain\Foundation\Console\ListDomainCommand;
-use Gecche\Multidomain\Foundation\Console\RemoveDomainCommand;
 use Illuminate\Support\ServiceProvider;
-use Gecche\Multidomain\Foundation\Console\DomainCommand;
-use Gecche\Multidomain\Foundation\Console\AddDomainCommand;
-use Gecche\Multidomain\Foundation\Console\UpdateEnvDomainCommand;
 
 class CupparisQueueServiceProvider extends ServiceProvider
 {
+
+    /**
+     * Register the service provider.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        $this->app->singleton('cupparis-queue', function ($app) {
+            return new CupparisQueueManager(function () use ($app) {
+                return call_user_func($app['auth']->userResolver());
+            });
+        });
+    }
+
 
     public function boot()
     {

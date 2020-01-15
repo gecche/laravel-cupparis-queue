@@ -1,13 +1,15 @@
 <?php namespace Gecche\Cupparis\Queue;
 
 
+use Gecche\Cupparis\Queue\Contracts\CupparisQueueContract;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
-class MainQueue
+class MainQueue implements CupparisQueueContract
 {
+
     use CupparisQueueTrait;
 
     protected $config = null;
@@ -22,12 +24,12 @@ class MainQueue
         $this->config = Config::get('cupparis-queue',[]);
     }
 
-    protected function jobStart($job, $data, $job_type)
+    public function jobStart($job, $data, $job_type)
     {
         $this->data = $data;
         $this->job = $job;
         //Activityqueue::where('job_id',$this->job->getJobId())->delete();
-        $queueModelName = Arr::get($this->config,'model');
+        $queueModelName = Arr::get($this->config, 'model');
         $this->acQueue = $queueModelName::findOrFail(Arr::get($data, 'activityqueue_id', -1));
         $this->acQueue->start = date("Y-m-d H:i:s");
         $this->acQueue->job_id = $this->job->getJobId();
@@ -38,10 +40,10 @@ class MainQueue
         $v = $this->acQueue->toArray();
         //echo "start\n";
         //print_r($v);
-        Storage::put($this->getQueueFilename($queueId),cupparis_json_encode($v));
+        Storage::put($this->getQueueFilename($queueId), cupparis_json_encode($v));
     }
 
-    protected function jobEnd($error = 0, $msg = "")
+    public function jobEnd($error = 0, $msg = "")
     {
         $this->acQueue->error = $error;
         $this->acQueue->msg = $msg;
@@ -55,11 +57,11 @@ class MainQueue
         $v['msg'] = $msg;
 //		echo "end\n";
 //		print_r($v);
-        Storage::put($this->getQueueFilename($this->acQueue->getKey()),cupparis_json_encode($v));
+        Storage::put($this->getQueueFilename($this->acQueue->getKey()), cupparis_json_encode($v));
         $this->job->delete();
     }
 
-    protected function jobProgress($progress)
+    public function jobProgress($progress)
     {
         $this->acQueue->progress = $progress;
         $this->acQueue->save();
@@ -67,7 +69,7 @@ class MainQueue
         $v['progress'] = $progress;
 //		echo "progress\n";
 //		print_r($v);
-        Storage::put($this->getQueueFilename($this->acQueue->getKey()),cupparis_json_encode($v));
+        Storage::put($this->getQueueFilename($this->acQueue->getKey()), cupparis_json_encode($v));
     }
     // fine classe principale
 }
