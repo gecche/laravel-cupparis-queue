@@ -4,7 +4,7 @@ namespace Gecche\Cupparis\Queue\Models;
 use Gecche\Breeze\Breeze;
 use Illuminate\Support\Facades\Auth;
 
-class Activityqueue extends Breeze
+class ActivityQueue extends Breeze
 {
     protected $table = 'queues';
 

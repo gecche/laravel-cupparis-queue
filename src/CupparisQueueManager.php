@@ -2,6 +2,7 @@
 
 namespace Gecche\Cupparis\Queue;
 
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Queue;
 use Illuminate\Support\Facades\Storage;
@@ -36,7 +37,7 @@ class CupparisQueueManager {
         return $this->config;
     }
 
-    public function add(string $queue, string $action = null) {
+    public function add(string $queue, string $action = null, $inputData = []) {
 
 
         $queues = Arr::get($this->config,'queues',[]);
@@ -55,7 +56,8 @@ class CupparisQueueManager {
 
             $job = $queue . ($action ? "@$action" : "");
             $this->result['msg'] = "created " . $job;
-            $data = Input::all();
+
+            $data = $inputData;
 
             $user = $this->resolveUser();
 
