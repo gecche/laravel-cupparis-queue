@@ -18,4 +18,9 @@ class QueueController extends Controller {
         return Response::json($result);
     }
 
+
+//    public function qlist($type = null) {
+//        $result = CupparisQueue::qlist($type);
+//        return Response::json($result);
+//    }
 }

@@ -36,11 +36,11 @@ Route::group([
             "uses" => "QueueController@status"
         ]);
 
-    Route::any("list/{type?}",
-        [
-            "as" => "queue_list",
-            "uses" => "QueueController@qlist"
-        ]);
+//    Route::any("list/{type?}",
+//        [
+//            "as" => "queue_list",
+//            "uses" => "QueueController@qlist"
+//        ]);
 
 
 });
