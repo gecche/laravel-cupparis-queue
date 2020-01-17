@@ -4,6 +4,7 @@ namespace Gecche\Cupparis\Queue;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Queue;
 use Illuminate\Support\Facades\Storage;
 
@@ -54,7 +55,7 @@ class CupparisQueueManager {
         $this->setStandardResult();
         try {
 
-            $job = $queue . ($action ? "@$action" : "");
+            $job = $queueClass . ($action ? "@$action" : "");
             $this->result['msg'] = "created " . $job;
 
             $data = $inputData;
@@ -75,7 +76,7 @@ class CupparisQueueManager {
             $data['activityqueue_id'] = $activityQueue->getKey();
             $this->result['jobId'] = $data['activityqueue_id'];
             $filename = $this->getQueueFilename($this->result['jobId']);
-//            Log::info("JOB ADDDDD:");
+//            Log::info("JOB ADDDDD: " . $job);
             Storage::put($filename, cupparis_json_encode([]));
             Queue::push($job, $data);
         } catch (\Exception $e) {
