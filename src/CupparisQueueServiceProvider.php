@@ -40,7 +40,7 @@ class CupparisQueueServiceProvider extends ServiceProvider
     }
 
     protected $listen = [
-       JobProgress::class => UpdateQueueOnJobProgress::class,
+       JobProgress::class => [UpdateQueueOnJobProgress::class],
     ];
 
 
