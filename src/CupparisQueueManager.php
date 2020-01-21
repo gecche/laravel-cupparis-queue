@@ -68,7 +68,7 @@ class CupparisQueueManager {
             }
             $data['userId'] = $userId;
 
-            $queueModelName = Arr::get($this->config,'model');
+            $queueModelName = $this->getQueueModelClassName();
             $activityQueue = $queueModelName::create([
                 'user_id' => $data['userId'],
             ]);

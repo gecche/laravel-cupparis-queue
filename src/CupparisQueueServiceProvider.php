@@ -1,9 +1,9 @@
 <?php namespace Gecche\Cupparis\Queue;
 
-use Illuminate\Support\Arr;
+use Gecche\Cupparis\Queue\Events\JobProgress;
+use Gecche\Cupparis\Queue\Listeners\UpdateQueueOnJobProgress;
 use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\ServiceProvider;
+use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 class CupparisQueueServiceProvider extends ServiceProvider
 {
@@ -28,6 +28,8 @@ class CupparisQueueServiceProvider extends ServiceProvider
 
     public function boot()
     {
+        parent::boot();
+
         $this->publishes([
             __DIR__ . '/config/cupparis-queue.php' => config_path('cupparis-queue.php'),
 
@@ -35,7 +37,12 @@ class CupparisQueueServiceProvider extends ServiceProvider
         ]);
 
         $this->loadRoutesFrom(__DIR__.'/routes/queue-web.php');
-
     }
+
+    protected $listen = [
+       JobProgress::class => UpdateQueueOnJobProgress::class,
+    ];
+
+
 
 }

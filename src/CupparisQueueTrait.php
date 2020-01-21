@@ -17,5 +17,8 @@ trait CupparisQueueTrait {
         return Arr::get($this->config,'storage-folder') . '/' . 'progress_'.$jobId;
     }
 
+    protected function getQueueModelClassName() {
+        return Arr::get($this->config,'model');
+    }
 
 }
