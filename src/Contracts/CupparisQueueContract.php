@@ -8,11 +8,6 @@
 
 namespace Gecche\Cupparis\Queue\Contracts;
 
-
-use Gecche\Cupparis\Queue\MainQueue;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Storage;
-
 interface CupparisQueueContract
 {
     public function jobEnd($error = 0, $msg = "");

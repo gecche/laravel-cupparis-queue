@@ -1,8 +1,5 @@
-<?php namespace Gecche\Cupparis\Queue;
+<?php namespace Gecche\Cupparis\Queue\Queues;
 
-
-use Gecche\Cupparis\Queue\MainQueue;
-use Illuminate\Support\Facades\Log;
 
 class TestQueue extends MainQueue {
 

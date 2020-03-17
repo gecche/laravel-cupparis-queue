@@ -1,7 +1,8 @@
-<?php namespace Gecche\Cupparis\Queue;
+<?php namespace Gecche\Cupparis\Queue\Queues;
 
 
 use Gecche\Cupparis\Queue\Contracts\CupparisQueueContract;
+use Gecche\Cupparis\Queue\CupparisQueueTrait;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;
