@@ -8,9 +8,11 @@
 
 $config = \Gecche\Cupparis\Queue\Facades\CupparisQueue::getConfig();
 
-$namespace = \Illuminate\Support\Arr::get($config, 'controller-namespace');
+$namespace = \Illuminate\Support\Arr::get($config, 'controller-namespace',"Gecche\\Cupparis\\Queue\\Http\\Controllers");
 $prefix = \Illuminate\Support\Arr::get($config, 'routes-prefix');
-$queues = array_keys(\Illuminate\Support\Arr::get($config, 'queues', []));
+$queues = array_keys(\Illuminate\Support\Arr::get($config, 'queues', [
+    'test' => \Gecche\Cupparis\Queue\TestQueue::class,
+]));
 
 Route::group([
     'namespace' => $namespace,
