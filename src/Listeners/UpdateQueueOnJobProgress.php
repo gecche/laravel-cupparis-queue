@@ -5,6 +5,7 @@ use Gecche\Cupparis\Queue\Facades\CupparisQueue;
 
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class UpdateQueueOnJobProgress implements ShouldQueue {
 
@@ -34,7 +35,7 @@ class UpdateQueueOnJobProgress implements ShouldQueue {
         $acQueue->save();		//
 
         $filename = CupparisQueue::getQueueFilename($jobId);
-        File::put($filename,cupparis_json_encode($acQueue->toArray()));
+        Storage::put($filename,cupparis_json_encode($acQueue->toArray()));
 	}
 
 }
