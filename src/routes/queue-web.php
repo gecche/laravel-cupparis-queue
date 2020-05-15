@@ -11,7 +11,7 @@ $config = \Gecche\Cupparis\Queue\Facades\CupparisQueue::getConfig();
 $namespace = \Illuminate\Support\Arr::get($config, 'controller-namespace',"Gecche\\Cupparis\\Queue\\Http\\Controllers");
 $prefix = \Illuminate\Support\Arr::get($config, 'routes-prefix');
 $queues = array_keys(\Illuminate\Support\Arr::get($config, 'queues', [
-    'test' => \Gecche\Cupparis\Queue\TestQueue::class,
+    'test' => \Gecche\Cupparis\Queue\Queues\TestQueue::class,
 ]));
 
 Route::group([

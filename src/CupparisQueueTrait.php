@@ -13,11 +13,11 @@ use Illuminate\Support\Facades\Storage;
 
 trait CupparisQueueTrait {
 
-    protected function getQueueFilename($jobId) {
+    public function getQueueFilename($jobId) {
         return Arr::get($this->config,'storage-folder') . '/' . 'progress_'.$jobId;
     }
 
-    protected function getQueueModelClassName() {
+    public function getQueueModelClassName() {
         return Arr::get($this->config,'model');
     }
 
