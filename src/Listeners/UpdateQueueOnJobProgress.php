@@ -4,10 +4,14 @@ use Gecche\Cupparis\Queue\Events\JobProgress;
 use Gecche\Cupparis\Queue\Facades\CupparisQueue;
 
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
 class UpdateQueueOnJobProgress implements ShouldQueue {
+
+
+    public $queue = 'progress';
 
 	/**
 	 * Create the event handler.
@@ -16,7 +20,7 @@ class UpdateQueueOnJobProgress implements ShouldQueue {
 	 */
 	public function __construct()
 	{
-		//
+
 	}
 
 	/**
@@ -32,6 +36,7 @@ class UpdateQueueOnJobProgress implements ShouldQueue {
 
         $acQueue = $queueModelName::find($jobId); //new Activityqueue ();
         $acQueue->progress = $event->progress;
+//        echo $event->progress;
         $acQueue->save();		//
 
         $filename = CupparisQueue::getQueueFilename($jobId);
