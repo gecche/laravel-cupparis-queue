@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
-class MainQueue implements CupparisQueueContract
+class   MainQueue implements CupparisQueueContract
 {
 
     use CupparisQueueTrait;
@@ -33,8 +33,9 @@ class MainQueue implements CupparisQueueContract
         $queueModelName = Arr::get($this->config, 'model');
         $this->acQueue = $queueModelName::findOrFail(Arr::get($data, 'activityqueue_id', -1));
         $this->acQueue->start = date("Y-m-d H:i:s");
-        $this->acQueue->job_id = $this->job->getJobId();
+        $this->acQueue->job_id = $this->job->uuid();
         $this->acQueue->job_type = $job_type;
+        $data['uuid'] = $this->job->uuid();
         $this->acQueue->input_data = cupparis_json_encode($data);
         $this->acQueue->save();
         $queueId = $this->acQueue->getKey();
@@ -60,6 +61,28 @@ class MainQueue implements CupparisQueueContract
 //		print_r($v);
         Storage::put($this->getQueueFilename($this->acQueue->getKey()), cupparis_json_encode($v));
         $this->job->delete();
+    }
+
+    public function jobException(\Throwable $e)
+    {
+        $error = 1;
+        $msg = $e->getMessage() . " in " . $e->getFile() . " " . $e->getLine();
+
+        $this->acQueue->error = $error;
+        $this->acQueue->msg = $msg;
+        $this->acQueue->end = date("Y-m-d H:i:s");
+        $this->acQueue->output_data = cupparis_json_encode($this->output_data);
+        $this->acQueue->save();
+
+        $v = $this->acQueue->toArray();
+
+        $v['error'] = $error;
+        $v['msg'] = $msg;
+//		echo "end\n";
+//		print_r($v);
+        Storage::put($this->getQueueFilename($this->acQueue->getKey()), cupparis_json_encode($v));
+        $this->job->fail($e);
+        throw $e;
     }
 
     public function jobProgress($progress)
