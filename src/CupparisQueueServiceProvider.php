@@ -37,6 +37,7 @@ class CupparisQueueServiceProvider extends ServiceProvider
         ]);
 
         $this->loadRoutesFrom(__DIR__.'/routes/queue-web.php');
+        $this->loadRoutesFrom(__DIR__.'/routes/queue-api.php');
     }
 
     protected $listen = [
