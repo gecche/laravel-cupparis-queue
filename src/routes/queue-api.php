@@ -8,10 +8,11 @@
 
 
 Route::group([
-    'middleware' => ['web']
+    'middleware' => ['api'],
+    'prefix' => 'api',
 ], function () {
 
-    $isApi = false;
+    $isApi = true;
     require __DIR__ . '/queue-routes.php';
 
 });
