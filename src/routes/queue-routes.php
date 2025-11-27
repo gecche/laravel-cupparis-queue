@@ -16,7 +16,7 @@ Route::group([
 
 
     //LIST
-    Route::any("add/{queue}/{action?}",[$queueNamespace."\\".QueueController::class, 'queue_add'])
+    Route::any("add/{queue}/{action?}",[$queueNamespace."\\".QueueController::class, 'add'])
         ->name($isApi?'api.queue_add':'queue_add')
         ->where([
             'queue' => $whereQueues
