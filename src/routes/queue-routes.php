@@ -11,7 +11,7 @@ $whereQueues = join("|", $queues);
 Route::group([
     'namespace' => $queueNamespace,
     'prefix' => $queuePrefix,
-    'middleware' => ['auth:sanctum']
+    'middleware' => ($isApi?$apiMiddlewares:$webMiddlewares),
 ], function () use ($queueNamespace,$queuePrefix,$whereQueues,$isApi) {
 
 

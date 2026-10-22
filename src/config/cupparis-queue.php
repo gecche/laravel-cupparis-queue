@@ -18,5 +18,8 @@ return array(
     'queues' => [
       'test' => \Gecche\Cupparis\Queue\TestQueue::class,
     ],
+
+    'api_middlewares' => ['auth:sanctum'],
+    'web_middlewares' => ['auth:sanctum'],
 );
 

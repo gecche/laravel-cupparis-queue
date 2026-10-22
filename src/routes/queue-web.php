@@ -12,6 +12,7 @@ Route::group([
 ], function () {
 
     $isApi = false;
+    $webMiddlewares = config('cupparis-queue.web_middlewares',['auth:sanctum']);
     require __DIR__ . '/queue-routes.php';
 
 });
